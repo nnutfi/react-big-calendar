@@ -134,7 +134,7 @@ class TimeGridHeader extends React.Component {
 
     const groupedEvents = resources.groupEvents(events)
     const resourceGroups = [
-      ...new Set(resources.map(([resource]) => resource.resourceGroup)),
+      ...new Set(resources.map(([, resource]) => resource.resourceGroup)),
     ]
 
     return (

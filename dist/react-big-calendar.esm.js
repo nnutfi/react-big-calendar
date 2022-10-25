@@ -1881,6 +1881,15 @@ var EventRow = /*#__PURE__*/ (function (_React$Component) {
   return EventRow
 })(React.Component)
 
+EventRow.propTypes =
+  process.env.NODE_ENV !== 'production'
+    ? _objectSpread(
+        {
+          segments: PropTypes.array,
+        },
+        EventRowMixin.propTypes
+      )
+    : {}
 EventRow.defaultProps = _objectSpread({}, EventRowMixin.defaultProps)
 
 function endOfRange(_ref) {
@@ -2511,13 +2520,6 @@ var Header = function Header(_ref) {
     label
   )
 }
-
-Header.propTypes =
-  process.env.NODE_ENV !== 'production'
-    ? {
-        label: PropTypes.node,
-      }
-    : {}
 
 var DateHeader = function DateHeader(_ref) {
   var label = _ref.label,
@@ -4627,8 +4629,8 @@ var TimeGridHeader = /*#__PURE__*/ (function (_React$Component) {
         var resourceGroups = _toConsumableArray(
           new Set(
             resources.map(function (_ref) {
-              var _ref2 = _slicedToArray(_ref, 1),
-                resource = _ref2[0]
+              var _ref2 = _slicedToArray(_ref, 2),
+                resource = _ref2[1]
 
               return resource.resourceGroup
             })

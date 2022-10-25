@@ -3074,6 +3074,7 @@
       })()
     }
   })(react_development)
+
   ;(function (module) {
     {
       module.exports = react_development
@@ -9410,12 +9411,14 @@
     var popperInstanceRef = react.exports.useRef()
     var update = react.exports.useCallback(function () {
       var _popperInstanceRef$cu
+
       ;(_popperInstanceRef$cu = popperInstanceRef.current) == null
         ? void 0
         : _popperInstanceRef$cu.update()
     }, [])
     var forceUpdate = react.exports.useCallback(function () {
       var _popperInstanceRef$cu2
+
       ;(_popperInstanceRef$cu2 = popperInstanceRef.current) == null
         ? void 0
         : _popperInstanceRef$cu2.forceUpdate()
@@ -10256,6 +10259,7 @@
       })()
     }
   })(scheduler_development)
+
   ;(function (module) {
     {
       module.exports = scheduler_development
@@ -10616,6 +10620,7 @@
       })()
     }
   })(schedulerTracing_development)
+
   ;(function (module) {
     {
       module.exports = schedulerTracing_development
@@ -11013,6 +11018,7 @@
         )
       }) // A few React string attributes have a different name.
       // This is a mapping from React prop names to the attribute names.
+
       ;[
         ['acceptCharset', 'accept-charset'],
         ['className', 'class'],
@@ -11033,6 +11039,7 @@
       }) // These are "enumerated" HTML attributes that accept "true" and "false".
       // In React, we let users pass `true` and `false` even though technically
       // these aren't boolean attributes (they are coerced to strings).
+
       ;['contentEditable', 'draggable', 'spellCheck', 'value'].forEach(
         function (name) {
           properties[name] = new PropertyInfoRecord(
@@ -11049,6 +11056,7 @@
       // In React, we let users pass `true` and `false` even though technically
       // these aren't boolean attributes (they are coerced to strings).
       // Since these are SVG attributes, their attribute names are case-sensitive.
+
       ;[
         'autoReverse',
         'externalResourcesRequired',
@@ -11065,6 +11073,7 @@
           false
         )
       }) // These are HTML boolean attributes.
+
       ;[
         'allowFullScreen',
         'async', // Note: there is a special case that prevents it from being written to the DOM
@@ -11102,6 +11111,7 @@
         )
       }) // These are the few React props that we set as DOM properties
       // rather than attributes. These are all booleans.
+
       ;[
         'checked', // Note: `option.selected` is not updated if `select.multiple` is
         // disabled with `removeAttribute`. We have special logic for handling this.
@@ -11122,6 +11132,7 @@
         )
       }) // These are HTML attributes that are "overloaded booleans": they behave like
       // booleans, but can also accept a string value.
+
       ;[
         'capture',
         'download', // NOTE: if you add a camelCased prop to this list,
@@ -11138,6 +11149,7 @@
           false
         )
       }) // These are HTML attributes that must be positive numbers.
+
       ;[
         'cols',
         'rows',
@@ -11156,6 +11168,7 @@
           false
         )
       }) // These are HTML attributes that must be numbers.
+
       ;['rowSpan', 'start'].forEach(function (name) {
         properties[name] = new PropertyInfoRecord(
           name,
@@ -11265,6 +11278,7 @@
           false
         )
       }) // String SVG attributes with the xlink namespace.
+
       ;[
         'xlink:actuate',
         'xlink:arcrole',
@@ -11286,6 +11300,7 @@
           false
         )
       }) // String SVG attributes with the xml namespace.
+
       ;[
         'xml:base',
         'xml:lang',
@@ -11306,6 +11321,7 @@
       }) // These attribute exists both in HTML and SVG.
       // The attribute name is case-sensitive in SVG so we can't just use
       // the React name like we do for attributes that exist only in HTML.
+
       ;['tabIndex', 'crossOrigin'].forEach(function (attributeName) {
         properties[attributeName] = new PropertyInfoRecord(
           attributeName,
@@ -42386,6 +42402,7 @@
 
   DropdownToggle.displayName = 'ReactOverlaysDropdownToggle'
   DropdownToggle.propTypes = propTypes$1
+
   ;({
     /**
      * A render prop that returns the root dropdown element. The `props`
@@ -43046,7 +43063,7 @@
       if (restoreFocus) {
         var _lastFocusRef$current
 
-          // Support: <=IE11 doesn't support `focus()` on svg elements (RB: #917)
+        // Support: <=IE11 doesn't support `focus()` on svg elements (RB: #917)
         ;(_lastFocusRef$current = lastFocusRef.current) == null
           ? void 0
           : _lastFocusRef$current.focus == null
@@ -43692,6 +43709,7 @@
      */
     onExited: propTypes$3.exports.func,
   }
+
   ;({
     /**
      * A DOM element, Ref to an element, or function that returns either. The `container` will have the Portal children
@@ -51867,8 +51885,8 @@
           var resourceGroups = _toConsumableArray(
             new Set(
               resources.map(function (_ref) {
-                var _ref2 = _slicedToArray(_ref, 1),
-                  resource = _ref2[0]
+                var _ref2 = _slicedToArray(_ref, 2),
+                  resource = _ref2[1]
 
                 return resource.resourceGroup
               })
