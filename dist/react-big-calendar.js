@@ -51863,6 +51863,18 @@
           }
 
           var groupedEvents = resources.groupEvents(events)
+
+          var resourceGroups = _toConsumableArray(
+            new Set(
+              resources.map(function (_ref) {
+                var _ref2 = _slicedToArray(_ref, 1),
+                  resource = _ref2[0]
+
+                return resource.resourceGroup
+              })
+            )
+          )
+
           return /*#__PURE__*/ React.createElement(
             'div',
             {
@@ -51886,71 +51898,90 @@
               TimeGutterHeader &&
                 /*#__PURE__*/ React.createElement(TimeGutterHeader, null)
             ),
-            resources.map(function (_ref, idx) {
-              var _ref2 = _slicedToArray(_ref, 2),
-                id = _ref2[0],
-                resource = _ref2[1]
-
+            resourceGroups.map(function (resourceGroup) {
               return /*#__PURE__*/ React.createElement(
-                'div',
+                'span',
                 {
-                  className: 'rbc-time-header-content',
-                  key: id || idx,
+                  className: '',
+                  key: resourceGroup,
                 },
-                resource &&
-                  /*#__PURE__*/ React.createElement(
-                    'div',
-                    {
-                      className: 'rbc-row rbc-row-resource',
-                      key: 'resource_'.concat(idx),
-                    },
+                /*#__PURE__*/ React.createElement(
+                  'span',
+                  {
+                    className: '',
+                  },
+                  resourceGroup
+                ),
+                resources.map(function (_ref3, idx) {
+                  var _ref4 = _slicedToArray(_ref3, 2),
+                    id = _ref4[0],
+                    resource = _ref4[1]
+
+                  return (
+                    resource.resourceGroup === resourceGroup &&
                     /*#__PURE__*/ React.createElement(
                       'div',
                       {
-                        className: 'rbc-header',
+                        className: 'rbc-time-header-content',
+                        key: id || idx,
                       },
+                      resource &&
+                        /*#__PURE__*/ React.createElement(
+                          'div',
+                          {
+                            className: 'rbc-row rbc-row-resource',
+                            key: 'resource_'.concat(idx),
+                          },
+                          /*#__PURE__*/ React.createElement(
+                            'div',
+                            {
+                              className: 'rbc-header',
+                            },
+                            /*#__PURE__*/ React.createElement(
+                              ResourceHeaderComponent,
+                              {
+                                index: idx,
+                                label: accessors.resourceTitle(resource),
+                                resource: resource,
+                              }
+                            )
+                          )
+                        ),
                       /*#__PURE__*/ React.createElement(
-                        ResourceHeaderComponent,
+                        'div',
                         {
-                          index: idx,
-                          label: accessors.resourceTitle(resource),
-                          resource: resource,
-                        }
-                      )
+                          className: 'rbc-row rbc-time-header-cell'.concat(
+                            range.length <= 1
+                              ? ' rbc-time-header-cell-single-day'
+                              : ''
+                          ),
+                        },
+                        _this3.renderHeaderCells(range)
+                      ),
+                      /*#__PURE__*/ React.createElement(DateContentRow, {
+                        isAllDay: true,
+                        rtl: rtl,
+                        getNow: getNow,
+                        minRows: 2,
+                        range: range,
+                        events: groupedEvents.get(id) || [],
+                        resourceId: resource && id,
+                        className: 'rbc-allday-cell',
+                        selectable: selectable,
+                        selected: _this3.props.selected,
+                        components: components,
+                        accessors: accessors,
+                        getters: getters,
+                        localizer: localizer,
+                        onSelect: _this3.props.onSelectEvent,
+                        onDoubleClick: _this3.props.onDoubleClickEvent,
+                        onKeyPress: _this3.props.onKeyPressEvent,
+                        onSelectSlot: _this3.props.onSelectSlot,
+                        longPressThreshold: _this3.props.longPressThreshold,
+                        resizable: resizable,
+                      })
                     )
-                  ),
-                /*#__PURE__*/ React.createElement(
-                  'div',
-                  {
-                    className: 'rbc-row rbc-time-header-cell'.concat(
-                      range.length <= 1
-                        ? ' rbc-time-header-cell-single-day'
-                        : ''
-                    ),
-                  },
-                  _this3.renderHeaderCells(range)
-                ),
-                /*#__PURE__*/ React.createElement(DateContentRow, {
-                  isAllDay: true,
-                  rtl: rtl,
-                  getNow: getNow,
-                  minRows: 2,
-                  range: range,
-                  events: groupedEvents.get(id) || [],
-                  resourceId: resource && id,
-                  className: 'rbc-allday-cell',
-                  selectable: selectable,
-                  selected: _this3.props.selected,
-                  components: components,
-                  accessors: accessors,
-                  getters: getters,
-                  localizer: localizer,
-                  onSelect: _this3.props.onSelectEvent,
-                  onDoubleClick: _this3.props.onDoubleClickEvent,
-                  onKeyPress: _this3.props.onKeyPressEvent,
-                  onSelectSlot: _this3.props.onSelectSlot,
-                  longPressThreshold: _this3.props.longPressThreshold,
-                  resizable: resizable,
+                  )
                 })
               )
             })

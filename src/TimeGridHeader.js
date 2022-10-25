@@ -49,7 +49,7 @@ class TimeGridHeader extends React.Component {
             <button
               type="button"
               className="rbc-button-link"
-              onClick={e => this.handleHeaderClick(date, drilldownView, e)}
+              onClick={(e) => this.handleHeaderClick(date, drilldownView, e)}
             >
               {header}
             </button>
@@ -133,6 +133,9 @@ class TimeGridHeader extends React.Component {
     }
 
     const groupedEvents = resources.groupEvents(events)
+    const resourceGroups = [
+      ...new Set(resources.map(([resource]) => resource.resourceGroup)),
+    ]
 
     return (
       <div
@@ -147,49 +150,62 @@ class TimeGridHeader extends React.Component {
           {TimeGutterHeader && <TimeGutterHeader />}
         </div>
 
-        {resources.map(([id, resource], idx) => (
-          <div className="rbc-time-header-content" key={id || idx}>
-            {resource && (
-              <div className="rbc-row rbc-row-resource" key={`resource_${idx}`}>
-                <div className="rbc-header">
-                  <ResourceHeaderComponent
-                    index={idx}
-                    label={accessors.resourceTitle(resource)}
-                    resource={resource}
-                  />
-                </div>
-              </div>
+        {resourceGroups.map((resourceGroup) => (
+          <span className="" key={resourceGroup}>
+            <span className="">{resourceGroup}</span>
+            {resources.map(
+              ([id, resource], idx) =>
+                resource.resourceGroup === resourceGroup && (
+                  <div className="rbc-time-header-content" key={id || idx}>
+                    {resource && (
+                      <div
+                        className="rbc-row rbc-row-resource"
+                        key={`resource_${idx}`}
+                      >
+                        <div className="rbc-header">
+                          <ResourceHeaderComponent
+                            index={idx}
+                            label={accessors.resourceTitle(resource)}
+                            resource={resource}
+                          />
+                        </div>
+                      </div>
+                    )}
+                    <div
+                      className={`rbc-row rbc-time-header-cell${
+                        range.length <= 1
+                          ? ' rbc-time-header-cell-single-day'
+                          : ''
+                      }`}
+                    >
+                      {this.renderHeaderCells(range)}
+                    </div>
+                    <DateContentRow
+                      isAllDay
+                      rtl={rtl}
+                      getNow={getNow}
+                      minRows={2}
+                      range={range}
+                      events={groupedEvents.get(id) || []}
+                      resourceId={resource && id}
+                      className="rbc-allday-cell"
+                      selectable={selectable}
+                      selected={this.props.selected}
+                      components={components}
+                      accessors={accessors}
+                      getters={getters}
+                      localizer={localizer}
+                      onSelect={this.props.onSelectEvent}
+                      onDoubleClick={this.props.onDoubleClickEvent}
+                      onKeyPress={this.props.onKeyPressEvent}
+                      onSelectSlot={this.props.onSelectSlot}
+                      longPressThreshold={this.props.longPressThreshold}
+                      resizable={resizable}
+                    />
+                  </div>
+                )
             )}
-            <div
-              className={`rbc-row rbc-time-header-cell${
-                range.length <= 1 ? ' rbc-time-header-cell-single-day' : ''
-              }`}
-            >
-              {this.renderHeaderCells(range)}
-            </div>
-            <DateContentRow
-              isAllDay
-              rtl={rtl}
-              getNow={getNow}
-              minRows={2}
-              range={range}
-              events={groupedEvents.get(id) || []}
-              resourceId={resource && id}
-              className="rbc-allday-cell"
-              selectable={selectable}
-              selected={this.props.selected}
-              components={components}
-              accessors={accessors}
-              getters={getters}
-              localizer={localizer}
-              onSelect={this.props.onSelectEvent}
-              onDoubleClick={this.props.onDoubleClickEvent}
-              onKeyPress={this.props.onKeyPressEvent}
-              onSelectSlot={this.props.onSelectSlot}
-              longPressThreshold={this.props.longPressThreshold}
-              resizable={resizable}
-            />
-          </div>
+          </span>
         ))}
       </div>
     )
